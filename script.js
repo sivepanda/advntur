@@ -43,7 +43,7 @@ class Player {
         while (this.colliding()) {
             this.y += 1;
         }
-        if (this.touchingNPC() || this.touchingUnlocker()()) {
+        if (this.touchingNPC() || this.touchingUnlocker()) {
             this.y += this.speed;
         }
     }
