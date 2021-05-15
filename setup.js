@@ -171,3 +171,7 @@ function draw() {
 
     //HUD
 }
+
+function unlock() {
+    //unlock 5, 4 and 5, 5 (open wall function) walls to 3?
+}
