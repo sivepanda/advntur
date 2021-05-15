@@ -1,16 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>advntur</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
     <script src="script.js"></script>
-  </head>
-  <body>
+    <script src="modal.js"></script>
+    <script src="setup.js"></script>
+</head>
+
+<body>
     <div class="center">
-      <canvas id='game' height='500' width='500'></canvas>
-      <p id="playerloc">debug</p>
+        <canvas id='game' height='500' width='500'></canvas>
+        <p id="playerloc">debug</p>
     </div>
-  </body>
+    <div id="myModal" class="modal" onclick="closeModal()">
+        <div class="modal-content">
+            <p id="name" class="name"></p>
+            <p id="modaltext"></p>
+        </div>
+
+    </div>
+</body>
+
 </html>
