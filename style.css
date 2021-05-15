@@ -45,6 +45,5 @@ canvas {
 
 .modal-content .name {
     color: rgb(238, 255, 0);
-    text-transform: capitalize;
     font-weight: bold;
 }

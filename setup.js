@@ -27,6 +27,7 @@ window.onload = function() {
     setWalls();
     setNPCs();
     setUnlockers();
+    openModal("Welcome to advntur", "Use the arrow keys to navigate, and travel to the boxes with excamination points to het your objectives! Grey boxes with the letter K on them are keys! They are important!");
 
     console.log("Setup Complete");
 
@@ -169,4 +170,8 @@ function draw() {
     }
 
     //HUD
+}
+
+function unlock() {
+    //unlock 5, 4 and 5, 5 (open wall function) walls to 3?
 }
