@@ -19,7 +19,7 @@ canvas {
 }
 
 .modal {
-    /* display: none; */
+    display: none;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -45,6 +45,5 @@ canvas {
 
 .modal-content .name {
     color: rgb(238, 255, 0);
-    text-transform: capitalize;
     font-weight: bold;
 }

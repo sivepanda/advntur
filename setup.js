@@ -27,6 +27,7 @@ window.onload = function() {
     setWalls();
     setNPCs();
     setUnlockers();
+    openModal("Welcome to advntur", "Use the arrow keys to navigate, and travel to the boxes with excamination points to het your objectives! Grey boxes with the letter K on them are keys! They are important!");
 
     console.log("Setup Complete");
 
