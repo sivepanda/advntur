@@ -1,0 +1,17 @@
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%); /* for IE 9 */
+  -webkit-transform: translate(-50%, -50%); /* for Safari */
+  text-align: center;
+}
+
+body {
+  background-color: green;
+}
+
+canvas {
+  outline: 2px white solid;
+}
