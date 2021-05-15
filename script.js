@@ -43,7 +43,7 @@ class Player {
         while (this.colliding()) {
             this.y += 1;
         }
-        if (this.touchingNPC()) {
+        if (this.touchingNPC() || this.touchingUnlocker()()) {
             this.y += this.speed;
         }
     }
@@ -52,7 +52,7 @@ class Player {
         while (this.colliding()) {
             this.x += 1;
         }
-        if (this.touchingNPC()) {
+        if (this.touchingNPC() || this.touchingUnlocker()) {
             this.x += this.speed;
         }
     }
@@ -61,7 +61,7 @@ class Player {
         while (this.colliding()) {
             this.y -= 1;
         }
-        if (this.touchingNPC()) {
+        if (this.touchingNPC() || this.touchingUnlocker()) {
             this.y -= this.speed;
         }
     }
@@ -70,7 +70,7 @@ class Player {
         while (this.colliding()) {
             this.x -= 1;
         }
-        if (this.touchingNPC()) {
+        if (this.touchingNPC() || this.touchingUnlocker()) {
             this.x -= this.speed;
         }
     }
@@ -106,6 +106,26 @@ class Player {
         }
         return false;
     }
+
+    touchingUnlocker() {
+        for (var i = 0; i < unlkrs.length; i++) {
+            if (
+                this.x + this.width > unlkrs[i].x &&
+                this.x < unlkrs[i].x + unlkrs[i].width &&
+                this.y + this.height > unlkrs[i].y &&
+                this.y < unlkrs[i].y + unlkrs[i].height &&
+                !unlkrs[i].spoken
+            ) {
+                unlkrs[i].spoken = true;
+                unlockersFound.push(unlkrs[i].unlkCode);
+                console.log("hello");
+                localStorage.setItem("unlockers", JSON.stringify(unlockersFound));
+                clearEvents();
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 class NPC {
@@ -128,7 +148,7 @@ class NPC {
     }
 }
 
-class Keys {
+class Unlocker {
     x = 0;
     y = 0;
     height = 60;
@@ -140,11 +160,10 @@ class Keys {
     message = "";
     spoken = false;
 
-    constructor(x, y, name, mess) {
+    constructor(x, y, unlkCode) {
         this.x = x;
         this.y = y;
-        this.name = name;
-        this.message = mess;
+        this.unlkCode = unlkCode;
     }
 }
 

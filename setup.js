@@ -26,6 +26,7 @@ window.onload = function() {
 
     setWalls();
     setNPCs();
+    setUnlockers();
 
     console.log("Setup Complete");
 
@@ -49,16 +50,11 @@ function setWalls() {
     }
 }
 
+unlockersFound = [];
+
 npcs = [];
+unlkrs = [];
 
-//TO BE EDITED ONLY BY THE LEVEL EDITOR
-/*
-world=[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,0,0,0,1,0,0,0,0,0,0,0,1,0,1,0,1,0,1,0,0,0,0,0,1],[1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,1],[1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,1,0,1],[1,1,0,1,1,1,0,1,1,1,1,1,1,1,0,1,1,0,1,1,0,1,1,0,1],[1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,1],[1,0,0,0,0,0,0,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1],[1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]];
-
-coors={x:220, y:220};
-
-function setNPCs() { npcs = [new NPC(2020,220,"Lost Girl","Please Help Me! I'm Lost..."),new NPC(220,620,"Diego","Welcome to the Dungeon! There is a lost girl in there! Go Find Her!")]; }
-*/
 world = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -96,13 +92,11 @@ function setNPCs() {
     ];
 }
 
-function setNPCs() {
-    npcs = [
-        new NPC(420, 320, "Maezel", "I'm glad you finally woke up. You have to escape as soon as possible, it's dangerous in here. Save yourself!"),
-        new NPC(488, 644, "Demmy", "Welcome to the Snkeli room. You're going to have to grab your keys. Hurry!")
+function setUnlockers() {
+    unlkrs = [
+        new Unlocker(220, 872, 0001)
     ];
 }
-//TO BE EDITED ONLY BY THE LEVEL EDITOR
 
 walls = [];
 cx = 0;
@@ -159,19 +153,18 @@ function draw() {
         }
     }
 
-    //keys
-    for (var i = 0; i < keys.length; i++) {
-        ctx.fillStyle = keys[i].color;
-        ctx.fillRect(keys[i].x - cx, keys[i].y - cy, 60, 60);
-
-        ctx.font = 'bold 60px calibri';
-        ctx.textAlign = "center";
-        ctx.fillStyle = "yellow";
-        ctx.strokeStyle = "black";
-        ctx.lineWidth = 1;
-        if (!keys[i].spoken) {
-            ctx.fillText("!", keys[i].x - cx + keys[i].width / 2, keys[i].y - cy + keys[i].height / 2 + 20);
-            ctx.strokeText("!", keys[i].x - cx + keys[i].width / 2, keys[i].y - cy + keys[i].height / 2 + 20);
+    //Unlockers
+    for (var i = 0; i < unlkrs.length; i++) {
+        if (!unlkrs[i].spoken) {
+            ctx.fillStyle = unlkrs[i].color;
+            ctx.fillRect(unlkrs[i].x - cx, unlkrs[i].y - cy, 30, 60);
+            ctx.font = 'bold 60px calibri';
+            ctx.textAlign = "center";
+            ctx.fillStyle = "green";
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 1;
+            ctx.fillText("K", unlkrs[i].x - cx + unlkrs[i].width / 2, unlkrs[i].y - cy + unlkrs[i].height / 2 + 20);
+            ctx.strokeText("K", unlkrs[i].x - cx + unlkrs[i].width / 2, unlkrs[i].y - cy + unlkrs[i].height / 2 + 20);
         }
     }
 
