@@ -33,6 +33,8 @@ class Player {
             cy = wh - canv.height;
         }
 
+        this.touchingDoor();
+
         this.speed = 4;
 
         document.getElementById('playerloc').innerHTML = this.x + " " + this.y;
@@ -117,14 +119,44 @@ class Player {
                 !unlkrs[i].spoken
             ) {
                 unlkrs[i].spoken = true;
-                unlockersFound.push(unlkrs[i].unlkCode);
-                console.log("hello");
-                localStorage.setItem("unlockers", JSON.stringify(unlockersFound));
+                unlockersFound.push(unlkrs[i]);
+                openModal("Congratulations!", "You just found your first key!");
                 clearEvents();
                 return true;
             }
         }
         return false;
+    }
+
+    touchingDoor() {
+        for (var i = 0; i < doors.length; i++) {
+            if (
+                this.x + this.width > doors[i].x &&
+                this.x < doors[i].x + doors[i].width &&
+                this.y + this.height > doors[i].y &&
+                this.y < doors[i].y + doors[i].height &&
+                !doors[i].opened
+            ) {
+
+                for (var j = 0; j < walls.length; j++) {
+                    var wall = walls[j];
+                    if (doors[i].x == wall.x && doors[i].y + 100 == wall.y) {
+                        for (var k = 0; k < unlockersFound.length; k++) {
+                            if (unlockersFound[k].unlkCode == doors[i].unlkKey) {
+                                doors[i].opened = true;
+                                walls.splice(j, 1);
+                                draw();
+                                return null;
+                            }
+                        }
+                    }
+                }
+                if (!doors[i].spoken) {
+                    doors[i].spoken = true;
+                    openModal("You Need A Key", "Go look around to find a key!");
+                }
+            }
+        }
     }
 }
 
@@ -157,14 +189,35 @@ class Unlocker {
     color = "grey";
 
     name = "";
-    message = "";
+    unlkCode = "";
     spoken = false;
+    opened = false;
 
     constructor(x, y, unlkCode) {
         this.x = x;
         this.y = y;
         this.unlkCode = unlkCode;
     }
+}
+
+class Door {
+    x = 0;
+    y = 0;
+    height = 100;
+    width = 100;
+
+    color = "brown";
+
+    name = "";
+    message = "";
+    spoken = false;
+
+    constructor(x, y, unlkKey) {
+        this.x = x;
+        this.y = y;
+        this.unlkKey = unlkKey;
+    }
+
 }
 
 //CONTROLS ------------------------------------
