@@ -16,10 +16,13 @@
         <canvas id='game' height='500' width='500'></canvas>
         <p id="playerloc">debug</p>
     </div>
-    <div id="myModal" class="modal" onclick="closeModal()">
+    <div id="myModal" class="modal">
         <div class="modal-content">
             <p id="name" class="name"></p>
             <p id="modaltext"></p>
+            <input type="text" id="text" name="text" value="John"><br><br><br>
+            <button type="button" id="smbbutton" class="smbbutton" onclick="submit()">Submit</button>
+            <button type="button" id="modalbutton" class="modalbutton" onclick="closeModal()">Close</button>
         </div>
 
     </div>

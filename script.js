@@ -101,7 +101,9 @@ class Player {
                 !npcs[i].spoken
             ) {
                 npcs[i].spoken = true;
-                openModal(npcs[i].name, npcs[i].message);
+                openModal(npcs[i].name, npcs[i].message, npcs[i].hasQuestion);
+                ans = npcs[i].answer;
+                modalUnlk = npcs[i].unlkCode;
                 clearEvents();
                 return true;
             }
@@ -172,11 +174,14 @@ class NPC {
     message = "";
     spoken = false;
 
-    constructor(x, y, name, mess) {
+    constructor(x, y, name, mess, unlkCode, hasQuestion, answer) {
         this.x = x;
         this.y = y;
         this.name = name;
         this.message = mess;
+        this.unlkCode = unlkCode;
+        this.hasQuestion = hasQuestion;
+        this.answer = answer;
     }
 }
 

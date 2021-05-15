@@ -47,3 +47,41 @@ canvas {
     color: rgb(238, 255, 0);
     font-weight: bold;
 }
+
+input[type=text] {
+    background-color: rgb(250, 250, 250);
+    color: green;
+    display: none;
+}
+
+.modal-content .modalbutton {
+    font-family: 'Poppins';
+    display: none;
+    border: none;
+    padding-top: 0vw;
+    background-color: red;
+    color: white;
+    font-size: 180%;
+    transition: all ease-in-out 150ms;
+}
+
+.modal-content .modalbutton:hover {
+    background-color: darkred;
+    transition: all ease-in-out 150ms;
+}
+
+.modal-content .smbbutton {
+    font-family: 'Poppins';
+    display: none;
+    border: none;
+    padding-top: 0vw;
+    background-color: rgb(130, 139, 0);
+    color: white;
+    font-size: 180%;
+    transition: all ease-in-out 150ms;
+}
+
+.modal-content .smbbutton:hover {
+    background-color: rgb(56, 66, 0);
+    transition: all ease-in-out 150ms;
+}
