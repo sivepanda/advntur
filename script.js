@@ -45,7 +45,7 @@ class Player {
         while (this.colliding()) {
             this.y += 1;
         }
-        if (this.touchingNPC() || this.touchingUnlocker()) {
+        if (this.touchingNPC() || this.touchingUnlocker() || this.touchingGameOver()) {
             this.y += this.speed;
         }
     }
@@ -54,7 +54,7 @@ class Player {
         while (this.colliding()) {
             this.x += 1;
         }
-        if (this.touchingNPC() || this.touchingUnlocker()) {
+        if (this.touchingNPC() || this.touchingUnlocker() || this.touchingGameOver()) {
             this.x += this.speed;
         }
     }
@@ -63,7 +63,7 @@ class Player {
         while (this.colliding()) {
             this.y -= 1;
         }
-        if (this.touchingNPC() || this.touchingUnlocker()) {
+        if (this.touchingNPC() || this.touchingUnlocker() || this.touchingGameOver()) {
             this.y -= this.speed;
         }
     }
@@ -72,7 +72,7 @@ class Player {
         while (this.colliding()) {
             this.x -= 1;
         }
-        if (this.touchingNPC() || this.touchingUnlocker()) {
+        if (this.touchingNPC() || this.touchingUnlocker() || this.touchingGameOver()) {
             this.x -= this.speed;
         }
     }
@@ -101,7 +101,7 @@ class Player {
                 !npcs[i].spoken
             ) {
                 npcs[i].spoken = true;
-                openModal(npcs[i].name, npcs[i].message, npcs[i].hasQuestion);
+                openModal(npcs[i].name, npcs[i].message, npcs[i].hasQuestion, false);
                 ans = npcs[i].answer;
                 modalUnlk = npcs[i].unlkCode;
                 clearEvents();
@@ -124,8 +124,24 @@ class Player {
                 unlockersFound.push(unlkrs[i]);
                 openModal("Congratulations!", "You just found your first key!");
                 clearEvents();
+                checkpoint++;
                 return true;
             }
+        }
+        return false;
+    }
+
+    touchingGameOver() {
+        if (
+            this.x + this.width > gameOver.x &&
+            this.x < gameOver.x + gameOver.width &&
+            this.y + this.height > gameOver.y &&
+            this.y < gameOver.y + gameOver.height
+        ) {
+            openModal("Congratulations!", "Level 1 is COMPLETE!", false, true);
+            clearEvents();
+            checkpoint++;
+            return true;
         }
         return false;
     }
@@ -161,6 +177,8 @@ class Player {
         }
     }
 }
+
+
 
 class NPC {
     x = 0;
@@ -223,6 +241,29 @@ class Door {
         this.unlkKey = unlkKey;
     }
 
+}
+
+class GameInfo {
+    constructor(x, y, npcs, unlkrs, checkpoint, unlockersFound, walls) {
+        this.x = x;
+        this.y = y;
+        this.npcs = npcs;
+        this.unlkrs = unlkrs;
+        this.checkpoint = checkpoint;
+        this.unlockersFound = unlockersFound;
+        this.walls = walls;
+    }
+}
+
+class GameOver {
+    height = 60;
+    width = 60;
+    color = "blue";
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+
+    }
 }
 
 //CONTROLS ------------------------------------
@@ -290,3 +331,5 @@ function click() {
     var mouseX = mousePos.x;
     var mouseY = mousePos.y;
 }
+
+var saveGame = new GameInfo(436, 1988, [], [], [], [], []);

@@ -10,7 +10,7 @@ function openModal(name, message) {
     freeze();
 }
 
-function openModal(name, message, hasQuestion) {
+function openModal(name, message, hasQuestion, gameOver) {
     document.getElementById("name").innerHTML = name;
     document.getElementById("modaltext").innerHTML = message;
     document.getElementById("myModal").style.display = "inline";
@@ -19,7 +19,9 @@ function openModal(name, message, hasQuestion) {
         document.getElementById("text").style.display = "inline";
         document.getElementById("smbbutton").style.display = "inline";
         document.getElementById("modalbutton").style.display = "none";
-    } else {
+    } else if (gameOver == true) {
+        document.getElementById("savebutton").style.display = "inline";
+    } {
         document.getElementById("modalbutton").style.display = "inline";
     }
 
@@ -28,7 +30,8 @@ function openModal(name, message, hasQuestion) {
 
 function closeModal() {
     document.getElementById("modalbutton").style.display = "none";
-    document.getElementById("modalbutton").style.display = "none";
+    document.getElementById("smbbutton").style.display = "none";
+    document.getElementById("text").style.display = "none";
     document.getElementById("myModal").style.display = "none";
     unFreeze();
 }

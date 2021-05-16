@@ -34,8 +34,4 @@ function wait(ms) {
     while (d2 - d < ms);
 }
 
-function decodeCityName(s) {
-
-}
-
 //SFHS TSA 2020

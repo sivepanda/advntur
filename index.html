@@ -9,6 +9,8 @@
     <script src="script.js"></script>
     <script src="modal.js"></script>
     <script src="setup.js"></script>
+    <script src="gameInfo/SaveGame.js"></script>
+    <!-- <script src="gameInfo/LoadGame.js"></script> -->
 </head>
 
 <body>
@@ -20,8 +22,9 @@
         <div class="modal-content">
             <p id="name" class="name"></p>
             <p id="modaltext"></p>
-            <input type="text" id="text" name="text" value="John"><br><br><br>
+            <input type="text" id="text" name="text" onfocus="this.select()"><br><br><br>
             <button type="button" id="smbbutton" class="smbbutton" onclick="submit()">Submit</button>
+            <button type="button" id="savebutton" class="smbbutton" onclick="save()">Save</button>
             <button type="button" id="modalbutton" class="modalbutton" onclick="closeModal()">Close</button>
         </div>
 
