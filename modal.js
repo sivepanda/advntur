@@ -13,10 +13,10 @@ function openModal(name, message, hasQuestion, gameOver, hasOpenGame) {
         document.getElementById("text").style.display = "inline";
         document.getElementById("smbbutton").style.display = "inline";
         document.getElementById("modalbutton").style.display = "none";
+    } else if (hasOpenGame) {
+        document.getElementById("btn").style.display = "inline";
     } else if (gameOver == true) {
         document.getElementById("savebutton").style.display = "inline";
-    } else if (hasOpenGame) {
-        document.getElementById("inp").style.display = "inline";
     }
     freeze();
 }
@@ -26,6 +26,7 @@ function closeModal() {
     document.getElementById("smbbutton").style.display = "none";
     document.getElementById("text").style.display = "none";
     document.getElementById("myModal").style.display = "none";
+    document.getElementById("btn").style.display = "none";
     unFreeze();
 }
 

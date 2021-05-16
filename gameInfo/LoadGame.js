@@ -1,5 +1,3 @@
-// document.getElementById('opensavebutton').addEventListener('change', readFileAsString)
-
 function readFileAsString() {
     var files = this.files;
     if (files.length === 0) {
