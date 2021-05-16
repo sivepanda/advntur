@@ -1,4 +1,4 @@
-var fps = 120;
+var fps = 60;
 
 
 window.onload = function() {

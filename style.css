@@ -12,6 +12,7 @@
 
 body {
     background-color: green;
+    font-family: 'Poppins';
 }
 
 canvas {
@@ -98,7 +99,6 @@ input[type=text] {
 }
 
 .modal-content .smbbutton {
-    font-family: 'Poppins';
     display: none;
     border: none;
     padding-top: 0vw;
