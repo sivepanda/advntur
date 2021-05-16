@@ -31,8 +31,9 @@ function closeModal() {
 }
 
 function submit() {
-    var searchValue = document.getElementById("text").value;
-    if (searchValue = ans) {
+    var userAns = document.getElementById("text").value;
+    if (userAns == ans) {
+        document.getElementById('text').value = "correct!";
         unlockersFound.push(new Unlocker(0, 0, modalUnlk));
         closeModal();
     } else {
