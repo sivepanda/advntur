@@ -101,7 +101,7 @@ class Player {
                 !npcs[i].spoken
             ) {
                 npcs[i].spoken = true;
-                openModal(npcs[i].name, npcs[i].message, npcs[i].hasQuestion, false);
+                openModal(npcs[i].name, npcs[i].message, npcs[i].hasQuestion, false, false);
                 ans = npcs[i].answer;
                 modalUnlk = npcs[i].unlkCode;
                 clearEvents();
@@ -122,7 +122,7 @@ class Player {
             ) {
                 unlkrs[i].spoken = true;
                 unlockersFound.push(unlkrs[i]);
-                openModal("Congratulations!", "You just found your first key!");
+                openModal("Congratulations!", "You just found your first key!", false, false, false);
                 clearEvents();
                 checkpoint++;
                 return true;
@@ -138,7 +138,7 @@ class Player {
             this.y + this.height > gameOver.y &&
             this.y < gameOver.y + gameOver.height
         ) {
-            openModal("Congratulations!", "Level 1 is COMPLETE!", false, true);
+            openModal("Congratulations!", "Level 1 is COMPLETE!", false, true, false);
             clearEvents();
             checkpoint++;
             return true;
@@ -171,7 +171,7 @@ class Player {
                 }
                 if (!doors[i].spoken) {
                     doors[i].spoken = true;
-                    openModal("You Need A Key", "Go look around to find a key!");
+                    openModal("You Need A Key", "Go look around to find a key!", false, false, false);
                 }
             }
         }
@@ -332,4 +332,4 @@ function click() {
     var mouseY = mousePos.y;
 }
 
-var saveGame = new GameInfo(436, 1988, [], [], [], [], []);
+var saveGame = new GameInfo(450, 450, [], [], [], [], []);

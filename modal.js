@@ -2,18 +2,12 @@
 var modal = document.getElementById("myModal");
 
 //'onclick' function, randomize events
-function openModal(name, message) {
+
+function openModal(name, message, hasQuestion, gameOver, hasOpenGame) {
     document.getElementById("name").innerHTML = name;
     document.getElementById("modaltext").innerHTML = message;
     document.getElementById("myModal").style.display = "inline";
     document.getElementById("modalbutton").style.display = "inline";
-    freeze();
-}
-
-function openModal(name, message, hasQuestion, gameOver) {
-    document.getElementById("name").innerHTML = name;
-    document.getElementById("modaltext").innerHTML = message;
-    document.getElementById("myModal").style.display = "inline";
     if (hasQuestion == true) {
         document.getElementById('text').value = "Answer here";
         document.getElementById("text").style.display = "inline";
@@ -21,10 +15,9 @@ function openModal(name, message, hasQuestion, gameOver) {
         document.getElementById("modalbutton").style.display = "none";
     } else if (gameOver == true) {
         document.getElementById("savebutton").style.display = "inline";
-    } {
-        document.getElementById("modalbutton").style.display = "inline";
+    } else if (hasOpenGame) {
+        document.getElementById("inp").style.display = "inline";
     }
-
     freeze();
 }
 

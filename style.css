@@ -54,14 +54,41 @@ input[type=text] {
     display: none;
 }
 
-.modal-content .modalbutton {
-    font-family: 'Poppins';
+.inp {
+    display: none;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inp+label {
     display: none;
     border: none;
-    padding-top: 0vw;
+    background-color: rgb(130, 139, 0);
+    color: white;
+    font-size: 8vh;
+    margin-right: 2vw;
+    transition: all cubic-bezier(.79, .14, .15, .86) 550ms;
+}
+
+.inp:focus+label,
+.inp+label:hover {
+    /* display: none; */
+    transition: all cubic-bezier(.79, .14, .15, .86) 350ms;
+    border: none;
+    background-color: rgb(56, 66, 0);
+}
+
+.modal-content .modalbutton {
+    display: none;
+    border: none;
     background-color: red;
     color: white;
-    font-size: 180%;
+    font-size: 7vh;
+    margin-right: 2vw;
     transition: all ease-in-out 150ms;
 }
 

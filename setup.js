@@ -30,7 +30,7 @@ window.onload = function() {
     setUnlockers();
     setDoors();
     setGameOver();
-    openModal("Welcome to advntur", "Use the arrow keys to navigate, and travel to the boxes with excamination points to het your objectives! Grey boxes with the letter K on them are keys! They are important!");
+    openModal("Welcome to advntur", "Use the arrow keys to navigate, and travel to the boxes with excamination points to het your objectives! Grey boxes with the letter K on them are keys! They are important!<br><br> You can also open a prevoius game save using the <i>Open Previous Save</i> button below, and selecting a Game(x) file.", false, false, true);
 
     console.log("Setup Complete");
 

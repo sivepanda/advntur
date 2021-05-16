@@ -1,4 +1,4 @@
-document.getElementById('file').addEventListener('change', readFileAsString)
+// document.getElementById('opensavebutton').addEventListener('change', readFileAsString)
 
 function readFileAsString() {
     var files = this.files;
@@ -17,12 +17,7 @@ function readFileAsString() {
         console.log('DONE', reader.readyState);
         console.log(reader.result);
         result = reader.result;
-        city = result.slice(result.indexOf("]") + 2, result.length - 1);
-        playerNames = (result.slice(0, result.indexOf("]") + 1));
-        localStorage.setItem("players", playerNames);
-        localStorage.setItem("cit", city);
         wait(500);
-        window.location.href = 'secondarymenu.html';
         //add load complete message to the bottom or button
     };
 }
