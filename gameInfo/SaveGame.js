@@ -1,9 +1,3 @@
-function createSave() {
-    var ply = localStorage.getItem("players");
-    var city = localStorage.getItem("cit");
-    return ply + city;
-}
-
 function download(filename, text) {
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
@@ -19,7 +13,9 @@ function download(filename, text) {
 
 // Start file download.
 function save() {
-    download("Game.txt", createSave());
+    download("Game.txt", JSON.stringify(saveGame));
 }
+
+
 
 //SFHS TSA 2020
