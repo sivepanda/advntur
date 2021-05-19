@@ -1,3 +1,4 @@
+//CLASSES   --------------------------------------------------
 class Player {
     x = 0;
     y = 0;
@@ -125,6 +126,7 @@ class Player {
                 unlkrs[i].spoken = true;
                 unlockersFound.push(unlkrs[i]);
                 saveGame.unlockersFound = unlockersFound;
+                document.getElementById('unlockersfound').innerHTML = displayUnlockers(unlockersFound);
                 openModal("Congratulations!", "You just found your first key!", false, false, false);
                 clearEvents();
                 checkpoint++;
@@ -167,6 +169,7 @@ class Player {
                                 doors[i].opened = true;
                                 walls.splice(j, 1);
                                 draw();
+                                saveGame.doors.push(doors[i]);
                                 return null;
                             }
                         }
@@ -174,7 +177,7 @@ class Player {
                 }
                 if (!doors[i].spoken) {
                     doors[i].spoken = true;
-                    openModal("You Need A Key", "Go look around to find a key!", false, false, false);
+                    openModal("You Need A Key", "Go look around to find a key!<br>" + "You need key " + doors[i].unlkKey, false, false, false);
                 }
             }
         }
@@ -247,7 +250,7 @@ class Door {
 }
 
 class GameInfo {
-    constructor(x, y, npcs, unlkrs, checkpoint, unlockersFound, walls) {
+    constructor(x, y, npcs, unlkrs, checkpoint, unlockersFound, walls, doors) {
         this.x = x;
         this.y = y;
         this.npcs = npcs;
@@ -255,6 +258,7 @@ class GameInfo {
         this.checkpoint = checkpoint;
         this.unlockersFound = unlockersFound;
         this.walls = walls;
+        this.doors = doors;
     }
 }
 
@@ -335,4 +339,12 @@ function click() {
     var mouseY = mousePos.y;
 }
 
-var saveGame = new GameInfo(450, 450, [], [], [], [], []);
+function displayUnlockers(arr) {
+    var ret = "";
+    for (var i = 0; i < arr.length; i++) {
+        ret += "<br>" + arr[i].unlkCode;
+    }
+    return ret;
+}
+
+var saveGame = new GameInfo(450, 450, [], [], [], [], [], []);

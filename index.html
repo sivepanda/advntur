@@ -19,18 +19,24 @@
         <canvas id='game' height='500' width='500'></canvas>
         <p id="playerloc">debug</p>
     </div>
+    <div id="playerhud" class="playerhud">
+        <p id="hudheader" class="head">HUD</p>
+        <p class="subhead">Level</p>
+        <p id="level"></p>
+        <p class="subhead">Unlockers Found</p>
+        <p id="unlockersfound" class="info"></p>
+    </div>
     <div id="myModal" class="modal">
         <div class="modal-content" id="modal-content">
             <p id="name" class="name"></p>
-            <p id="modaltext"></p>
-            <input type="text" id="text" name="text" onfocus="this.select()"><br><br><br>
+            <p id="modaltext" class="modaltext"></p>
+            <input type="text" id="text" class="text" name="text" onfocus="this.select()"><br><br><br>
             <button type="button" id="smbbutton" class="smbbutton" onclick="submit()">Submit</button>
             <button type="button" id="savebutton" class="smbbutton" onclick="save()">Save</button>
             <input id="file" type="file" name="file" class="inp" accept=".txt">
             <label id="btn" for="file">Open Previous Save</label></input>
             <button type="button" id="modalbutton" class="modalbutton" onclick="closeModal()">Close</button>
         </div>
-
     </div>
 </body>
 

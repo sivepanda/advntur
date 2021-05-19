@@ -1,3 +1,4 @@
+//READS INPUTTED FILE AND SETS GAME OBJ TO FILE DATA
 function readFileAsString() {
     var files = this.files;
     if (files.length === 0) {
@@ -24,6 +25,8 @@ function readFileAsString() {
     };
 }
 
+
+//WAIT FUNCTION
 function wait(ms) {
     var d = new Date();
     var d2 = null;

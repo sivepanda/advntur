@@ -1,6 +1,6 @@
 var fps = 75;
 
-
+//LOADS A NEW GAME
 window.onload = function() {
     canv = document.getElementById('game');
     ctx = canv.getContext('2d');
@@ -30,24 +30,22 @@ window.onload = function() {
     setUnlockers();
     setDoors();
     setGameOver();
-    openModal("Welcome to advntur", "Use the arrow keys to navigate, and travel to the boxes with exclamination points to get your objectives! Grey boxes with the letter K on them are keys (some NPCs will also have keys; they will ask you questions)! They are important!<br><br> You can also open a previous game save using the <i>Open Previous Save</i> button below, and selecting a Game(x) file.", false, false, true);
+    openModal("Welcome to advntur", "Use the arrow keys to navigate, and travel to the boxes with exclamination points to get your objectives! Grey boxes with the a number on them are keys some NPCs will also have keys; they will ask you questions)! They are important!<br><br> You can also open a previous game save using the <i>Open Previous Save</i> button below, and selecting a Game(x) file.", false, false, true);
 
     console.log("Setup Complete");
 
 }
 
+//LOADS A PRESAVED GAME
 function loadGame() {
     p = new Player(saveGame.x, saveGame.y);
-
-    updateInterval = setInterval(update, 1000 / fps);
-
     walls = saveGame.walls;
     unlockersFound = saveGame.unlockersFound;
+    document.getElementById('unlockersfound').innerHTML = displayUnlockers(unlockersFound);
     npcs = saveGame.npcs;
     unlkrs = saveGame.unlkrs;
-    setDoors();
+    doors = saveGame.doors;
     setGameOver();
-
     console.log("Setup Complete");
 
 }
@@ -90,10 +88,10 @@ world = [
     [1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1],
     [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
     [1, 2, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1],
-    [1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+    [1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1],
     [1, 3, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1],
     [1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1],
     [1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1],
@@ -154,7 +152,6 @@ wh = world.length * 100;
 
 function update() {
     p.move();
-
     draw();
 }
 
@@ -177,14 +174,10 @@ function draw() {
     }
 
     //PLAYER
-    ctx.fillStyle = "red";
-    ctx.fillRect(p.x - cx, p.y - cy, p.width, p.height);
     ctx.fillStyle = "black";
-    ctx.fillRect(p.x - cx + 10, p.y - cy + 10, 10, 10);
-    ctx.fillRect(p.x - cx + p.width - 20, p.y - cy + 10, 10, 10);
-    ctx.fillRect(p.x - cx + 10, p.y - cy + p.height - 18, 40, 8);
-    ctx.fillRect(p.x - cx + 10, p.y - cy + p.height - 25, 10, 10);
-    ctx.fillRect(p.x - cx + p.width - 20, p.y - cy + p.height - 25, 10, 10);
+    ctx.fillRect(p.x - cx, p.y - cy, p.width, p.height);
+    ctx.fillStyle = "red";
+    ctx.fillRect(p.x - cx + 5, p.y - cy + 5, p.width - 10, p.height - 10);
 
     //NPCS
     for (var i = 0; i < npcs.length; i++) {
@@ -212,8 +205,8 @@ function draw() {
             ctx.fillStyle = "green";
             ctx.strokeStyle = "black";
             ctx.lineWidth = 1;
-            ctx.fillText("K", unlkrs[i].x - cx + unlkrs[i].width / 2, unlkrs[i].y - cy + unlkrs[i].height / 2 + 20);
-            ctx.strokeText("K", unlkrs[i].x - cx + unlkrs[i].width / 2, unlkrs[i].y - cy + unlkrs[i].height / 2 + 20);
+            ctx.fillText(unlkrs[i].unlkCode, unlkrs[i].x - cx + unlkrs[i].width / 2, unlkrs[i].y - cy + unlkrs[i].height / 2 + 20);
+            ctx.strokeText(unlkrs[i].unlkCode, unlkrs[i].x - cx + unlkrs[i].width / 2, unlkrs[i].y - cy + unlkrs[i].height / 2 + 20);
         }
     }
 
