@@ -15,7 +15,11 @@ function readFileAsString() {
         console.log('DONE', reader.readyState);
         console.log(reader.result);
         result = reader.result;
+        saveGame = JSON.parse(result);
+        draw();
         wait(500);
+        loadGame();
+        closeModal();
         //add load complete message to the bottom or button
     };
 }
@@ -27,4 +31,4 @@ function wait(ms) {
     while (d2 - d < ms);
 }
 
-//SFHS TSA 2020
+//SFHS TSA 2021

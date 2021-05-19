@@ -38,6 +38,8 @@ class Player {
         this.speed = 4;
 
         document.getElementById('playerloc').innerHTML = this.x + " " + this.y;
+        saveGame.x = this.x;
+        saveGame.y = this.y;
     }
 
     forward() {
@@ -122,6 +124,7 @@ class Player {
             ) {
                 unlkrs[i].spoken = true;
                 unlockersFound.push(unlkrs[i]);
+                saveGame.unlockersFound = unlockersFound;
                 openModal("Congratulations!", "You just found your first key!", false, false, false);
                 clearEvents();
                 checkpoint++;
