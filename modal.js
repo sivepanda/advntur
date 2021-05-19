@@ -1,6 +1,3 @@
-// Get the modal
-var modal = document.getElementById("myModal");
-
 //'onclick' function, randomize events
 
 function openModal(name, message, hasQuestion, gameOver, hasOpenGame) {
@@ -15,6 +12,8 @@ function openModal(name, message, hasQuestion, gameOver, hasOpenGame) {
         document.getElementById("modalbutton").style.display = "none";
     } else if (hasOpenGame) {
         document.getElementById("btn").style.display = "inline";
+        document.getElementById("file").style.display = "inline";
+        document.getElementById("file").addEventListener('change', readFileAsString, false);
     } else if (gameOver == true) {
         document.getElementById("savebutton").style.display = "inline";
     }
@@ -31,8 +30,9 @@ function closeModal() {
 }
 
 function submit() {
-    var searchValue = document.getElementById("text").value;
-    if (searchValue = ans) {
+    var userAns = document.getElementById("text").value;
+    if (userAns == ans) {
+        document.getElementById('text').value = "correct!";
         unlockersFound.push(new Unlocker(0, 0, modalUnlk));
         closeModal();
     } else {

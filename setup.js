@@ -1,4 +1,4 @@
-var fps = 120;
+var fps = 75;
 
 
 window.onload = function() {
@@ -25,12 +25,28 @@ window.onload = function() {
 
     updateInterval = setInterval(update, 1000 / fps);
 
-    setWalls();
+    setWalls(world);
     setNPCs();
     setUnlockers();
     setDoors();
     setGameOver();
-    openModal("Welcome to advntur", "Use the arrow keys to navigate, and travel to the boxes with excamination points to het your objectives! Grey boxes with the letter K on them are keys! They are important!<br><br> You can also open a prevoius game save using the <i>Open Previous Save</i> button below, and selecting a Game(x) file.", false, false, true);
+    openModal("Welcome to advntur", "Use the arrow keys to navigate, and travel to the boxes with exclamination points to get your objectives! Grey boxes with the letter K on them are keys (some NPCs will also have keys; they will ask you questions)! They are important!<br><br> You can also open a previous game save using the <i>Open Previous Save</i> button below, and selecting a Game(x) file.", false, false, true);
+
+    console.log("Setup Complete");
+
+}
+
+function loadGame() {
+    p = new Player(saveGame.x, saveGame.y);
+
+    updateInterval = setInterval(update, 1000 / fps);
+
+    walls = saveGame.walls;
+    unlockersFound = saveGame.unlockersFound;
+    npcs = saveGame.npcs;
+    unlkrs = saveGame.unlkrs;
+    setDoors();
+    setGameOver();
 
     console.log("Setup Complete");
 
@@ -44,10 +60,10 @@ function unFreeze() {
     updateInterval = setInterval(update, 1000 / fps);
 }
 
-function setWalls() {
-    for (var r = 0; r < world.length; r++) {
-        for (var c = 0; c < world[r].length; c++) {
-            if (world[r][c] >= 1) {
+function setWalls(levelMap) {
+    for (var r = 0; r < levelMap.length; r++) {
+        for (var c = 0; c < levelMap[r].length; c++) {
+            if (levelMap[r][c] >= 1) {
                 walls.push({ x: c * 100, y: r * 100 });
             }
         }
@@ -68,26 +84,26 @@ world = [
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
     [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1],
     [1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1],
+    [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
     [1, 2, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 3, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1],
+    [1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1],
+    [1, 3, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
 
@@ -96,6 +112,8 @@ coors = { x: saveGame.x, y: saveGame.y };
 function setNPCs() {
     npcs = [
         new NPC(448, 590, "Maezel", "I'm glad you finally woke up. You have to escape as soon as possible, it's dangerous in here. You're going to have to grab your keys. Hurry! Save yourself! <br>Oh, and remember, you are in the Sneki Room. You need to know this!", 0, false, ""),
+        new NPC(420, 1228, "Jeoffri", "You're looking for a key? I think the guard has one, but you'll have to find them. You might want to look down that hall.", 0, false, ""),
+
         new NPC(532, 1724, "Guard", "HEY! WHAT ARE YOU DOING HERE? <br>Oh, you work here? <br>Well, I can't just take your word for it. Answer me this then, what room did you come from?<br><i>type the name of the room as a single word and lowercase!</i>", 3, true, "sneki")
     ];
     saveGame.npcs = npcs;
@@ -103,7 +121,7 @@ function setNPCs() {
 
 function setUnlockers() {
     unlkrs = [
-        new Unlocker(128, 700, 2)
+        new Unlocker(720, 820, 2)
     ];
     saveGame.unlkrs;
 }
