@@ -145,7 +145,8 @@ class Player {
         ) {
             openModal("Congratulations!", "Level 1 is COMPLETE!", false, true, false);
             clearEvents();
-            checkpoint++;
+            level++;
+            newLevel();
             return true;
         }
         return false;
@@ -163,7 +164,7 @@ class Player {
 
                 for (var j = 0; j < walls.length; j++) {
                     var wall = walls[j];
-                    if (doors[i].x == wall.x && doors[i].y + 100 == wall.y) {
+                    if (doors[i].x + 10 == wall.x && doors[i].y + 10 == wall.y) {
                         for (var k = 0; k < unlockersFound.length; k++) {
                             if (unlockersFound[k].unlkCode == doors[i].unlkKey) {
                                 doors[i].opened = true;
@@ -232,8 +233,8 @@ class Unlocker {
 class Door {
     x = 0;
     y = 0;
-    height = 100;
-    width = 100;
+    height = 120;
+    width = 120;
 
     color = "brown";
 
@@ -262,13 +263,31 @@ class GameInfo {
     }
 }
 
+class Level {
+    constructor(world, spawnPt, npcs, unlockers, endGame) {
+        this.world = world;
+        this.spawnPt = spawnPt;
+        this.npcs = npcs;
+        this.unlockers = unlockers;
+        this.endGame = endGame;
+    }
+}
+
+class SpawnPt {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
 class GameOver {
     height = 60;
     width = 60;
     color = "blue";
-    constructor(x, y) {
+    constructor(x, y, color) {
         this.x = x;
         this.y = y;
+        this.color = color;
 
     }
 }
@@ -348,3 +367,58 @@ function displayUnlockers(arr) {
 }
 
 var saveGame = new GameInfo(450, 450, [], [], [], [], [], []);
+
+var levels = [new Level([
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1],
+    [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+    [1, 2, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+    [1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1],
+    [1, 3, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+], new SpawnPt(450, 450), [
+    new NPC(448, 590, "Maezel", "I'm glad you finally woke up. You have to escape as soon as possible, it's dangerous in here. You're going to have to grab your keys. Hurry! Save yourself! <br>Oh, and remember, you are in the Sneki Room. You need to know this!", 0, false, ""),
+    new NPC(420, 1228, "Jeoffri", "You're looking for a key? I think the guard has one, but you'll have to find them. You might want to look down that hall.", 0, false, ""),
+    new NPC(532, 1724, "Guard", "HEY! WHAT ARE YOU DOING HERE? <br>Oh, you work here? <br>Well, I can't just take your word for it. Answer me this then, what room did you come from?<br><i>type the name of the room as a single word and lowercase!</i>", 3, true, "sneki")
+], [new Unlocker(720, 820, 2)], new GameOver(496, 1984, "blue")), new Level([
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 2, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1],
+    [1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+    [1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 5, 1, 0, 1],
+    [1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 2, 1],
+    [1, 0, 1, 4, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 1, 0, 1, 0, 1, 1, 4, 1, 1, 1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1],
+    [1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+    [1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1],
+    [1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 7, 1, 1, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+], new SpawnPt(110, 110), [], [
+    [new Unlocker(116, 1220, 4)]
+], [])];

@@ -1,4 +1,5 @@
 var fps = 75;
+var level = 0;
 
 //LOADS A NEW GAME
 window.onload = function() {
@@ -25,15 +26,27 @@ window.onload = function() {
 
     updateInterval = setInterval(update, 1000 / fps);
 
-    setWalls(world);
-    setNPCs();
-    setUnlockers();
-    setDoors();
-    setGameOver();
+    newLevel();
     openModal("Welcome to advntur", "Use the arrow keys to navigate, and travel to the boxes with exclamination points to get your objectives! Grey boxes with the a number on them are keys some NPCs will also have keys; they will ask you questions)! They are important!<br><br> You can also open a previous game save using the <i>Open Previous Save</i> button below, and selecting a Game(x) file.", false, false, true);
 
     console.log("Setup Complete");
 
+}
+
+function newLevel() {
+    doors = [];
+    walls = [];
+    world = [];
+    world = levels[level].world;
+
+    setWalls(levels[level].world);
+    p.x = levels[level].spawnPt.x;
+    p.y = levels[level].spawnPt.y;
+    setNPCs();
+    setUnlockers();
+    setDoors();
+    setGameOver();
+    draw();
 }
 
 //LOADS A PRESAVED GAME
@@ -77,65 +90,33 @@ unlockersFound = [];
 npcs = [];
 unlkrs = [];
 doors = [];
-world = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
-    [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1],
-    [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
-    [1, 2, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-    [1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1],
-    [1, 3, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1],
-    [1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1],
-    [1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1],
-    [1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-    [1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-];
+world = levels[level].world;
 
-coors = { x: saveGame.x, y: saveGame.y };
+coors = { x: levels[level].spawnPt.x, y: levels[level].spawnPt.y };
 
 function setNPCs() {
-    npcs = [
-        new NPC(448, 590, "Maezel", "I'm glad you finally woke up. You have to escape as soon as possible, it's dangerous in here. You're going to have to grab your keys. Hurry! Save yourself! <br>Oh, and remember, you are in the Sneki Room. You need to know this!", 0, false, ""),
-        new NPC(420, 1228, "Jeoffri", "You're looking for a key? I think the guard has one, but you'll have to find them. You might want to look down that hall.", 0, false, ""),
-
-        new NPC(532, 1724, "Guard", "HEY! WHAT ARE YOU DOING HERE? <br>Oh, you work here? <br>Well, I can't just take your word for it. Answer me this then, what room did you come from?<br><i>type the name of the room as a single word and lowercase!</i>", 3, true, "sneki")
-    ];
+    npcs = levels[level].npcs;
     saveGame.npcs = npcs;
 }
 
 function setUnlockers() {
-    unlkrs = [
-        new Unlocker(720, 820, 2)
-    ];
-    saveGame.unlkrs;
+    unlkrs = levels[level].unlockers;
+    saveGame.unlkrs = unlkrs;
 }
 
 function setDoors() {
     for (var r = 0; r < world.length; r++) {
         for (var c = 0; c < world[r].length; c++) {
             if (world[r][c] > 1) {
-                doors.push(new Door(c * 100, (r * 100) - 100, world[r][c]));
+                doors.push(new Door(c * 100 - 10, r * 100 - 10, world[r][c]));
             }
         }
     }
+    saveGame.doors = doors;
 }
 
 function setGameOver() {
-    gameOver = new GameOver(496, 1984);
+    gameOver = levels[level].endGame;
 }
 
 walls = [];
@@ -157,19 +138,32 @@ function update() {
 
 function draw() {
     //BACKGROUND
-    ctx.fillStyle = "yellow";
+    ctx.fillStyle = "turquoise";
     ctx.fillRect(0, 0, canv.height, canv.width);
 
     //WALLS
-    ctx.fillStyle = "gray";
+    ctx.fillStyle = "black";
     for (var i = 0; i < walls.length; i++) {
         ctx.fillRect(walls[i].x - cx, walls[i].y - cy, 100, 100);
     }
 
     //DOORS
-    ctx.fillStyle = "crimson";
     for (var i = 0; i < doors.length; i++) {
-        ctx.fillRect(doors[i].x - cx, doors[i].y - cy, 100, 100);
+        ctx.font = 'bold 60px calibri';
+        ctx.textAlign = "center";
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 1;
+        if (!doors[i].opened) {
+            ctx.fillStyle = "crimson";
+            ctx.fillRect(doors[i].x - cx, doors[i].y - cy, 120, 120);
+            ctx.fillText("🔒", doors[i].x - cx + doors[i].width / 2, doors[i].y - cy + doors[i].height / 2 + 20);
+            ctx.strokeText("🔒", doors[i].x - cx + doors[i].width / 2, doors[i].y - cy + doors[i].height / 2 + 20);
+        } else {
+            ctx.fillStyle = "green";
+            ctx.fillRect(doors[i].x - cx, doors[i].y - cy, 120, 120);
+            ctx.fillText("🔓", doors[i].x - cx + doors[i].width / 2, doors[i].y - cy + doors[i].height / 2 + 20);
+            ctx.strokeText("🔓", doors[i].x - cx + doors[i].width / 2, doors[i].y - cy + doors[i].height / 2 + 20);
+        }
 
     }
 
@@ -177,7 +171,7 @@ function draw() {
     ctx.fillStyle = "black";
     ctx.fillRect(p.x - cx, p.y - cy, p.width, p.height);
     ctx.fillStyle = "red";
-    ctx.fillRect(p.x - cx + 5, p.y - cy + 5, p.width - 10, p.height - 10);
+    ctx.fillRect(p.x - cx + 5, p.y - cy + 5, p.width - 9, p.height - 9);
 
     //NPCS
     for (var i = 0; i < npcs.length; i++) {
@@ -199,14 +193,15 @@ function draw() {
     for (var i = 0; i < unlkrs.length; i++) {
         if (!unlkrs[i].spoken) {
             ctx.fillStyle = unlkrs[i].color;
-            ctx.fillRect(unlkrs[i].x - cx, unlkrs[i].y - cy, 30, 60);
             ctx.font = 'bold 60px calibri';
+            ctx.fillText("🔑", unlkrs[i].x - cx + unlkrs[i].width, unlkrs[i].y - cy + unlkrs[i].height);
+            ctx.strokeText("🔑", unlkrs[i].x - cx + unlkrs[i].width, unlkrs[i].y - cy + unlkrs[i].height);
             ctx.textAlign = "center";
             ctx.fillStyle = "green";
-            ctx.strokeStyle = "black";
-            ctx.lineWidth = 1;
-            ctx.fillText(unlkrs[i].unlkCode, unlkrs[i].x - cx + unlkrs[i].width / 2, unlkrs[i].y - cy + unlkrs[i].height / 2 + 20);
-            ctx.strokeText(unlkrs[i].unlkCode, unlkrs[i].x - cx + unlkrs[i].width / 2, unlkrs[i].y - cy + unlkrs[i].height / 2 + 20);
+            ctx.strokeStyle = "white";
+            ctx.lineWidth = 3;
+            ctx.fillText(unlkrs[i].unlkCode, unlkrs[i].x - cx + unlkrs[i].width, unlkrs[i].y - cy + unlkrs[i].height);
+            ctx.strokeText(unlkrs[i].unlkCode, unlkrs[i].x - cx + unlkrs[i].width, unlkrs[i].y - cy + unlkrs[i].height);
         }
     }
 

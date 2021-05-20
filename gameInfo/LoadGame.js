@@ -7,14 +7,10 @@ function readFileAsString() {
     }
 
     var reader = new FileReader();
-    reader.onload = function(event) {
-        console.log('File content:', event.target.result);
-    };
 
     reader.readAsText(files[0]);
     reader.onloadend = function() {
         console.log('DONE', reader.readyState);
-        console.log(reader.result);
         result = reader.result;
         saveGame = JSON.parse(result);
         draw();
