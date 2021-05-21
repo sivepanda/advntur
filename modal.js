@@ -1,5 +1,4 @@
-//'onclick' function, randomize events
-
+//OPENS SHADOWBOX WITH ONLY NESCESSARY ELEMENTS
 function openModal(name, message, hasQuestion, gameOver, hasOpenGame) {
     document.getElementById("name").innerHTML = name;
     document.getElementById("modaltext").innerHTML = message;
@@ -20,6 +19,7 @@ function openModal(name, message, hasQuestion, gameOver, hasOpenGame) {
     freeze();
 }
 
+//CLOSES SHADOWBOX & RESETS ELEMENTS
 function closeModal() {
     document.getElementById("modalbutton").style.display = "none";
     document.getElementById("smbbutton").style.display = "none";
@@ -29,13 +29,17 @@ function closeModal() {
     unFreeze();
 }
 
+//SHADOWBOX TEXT INPUT CONTROL
 function submit() {
     var userAns = document.getElementById("text").value;
     if (userAns == ans) {
         document.getElementById('text').value = "correct!";
         unlockersFound.push(new Unlocker(0, 0, modalUnlk));
+        document.getElementById('unlockersfound').innerHTML = displayUnlockers(unlockersFound);
         closeModal();
     } else {
         document.getElementById('text').value = "incorrect";
     }
 }
+
+//SFHS TSA 2021

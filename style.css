@@ -1,7 +1,7 @@
 .center {
     position: absolute;
-    left: 50%;
-    top: 50%;
+    left: 50vw;
+    top: 50vh;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     /* for IE 9 */
@@ -30,7 +30,7 @@ canvas {
     height: 100vh;
     overflow: hidden;
     background-color: black;
-    background-color: rgba(132, 0, 255, 0.301);
+    background-color: rgba(0, 0, 0, 0.678);
     cursor: default;
 }
 
@@ -48,6 +48,10 @@ canvas {
 .modal-content .name {
     color: rgb(238, 255, 0);
     font-weight: bold;
+}
+
+.modal-content .modaltext {
+    margin-bottom: -10vh;
 }
 
 input[type=text] {
@@ -68,24 +72,27 @@ input[type=text] {
 .inp+label {
     /* display: none; */
     border: none;
-    background-color: rgb(130, 139, 0);
+    background-color: rgb(0, 83, 139);
     color: white;
-    font-size: 8vh;
+    padding-top: 0vw;
+    font-size: 7.5vh;
     margin-right: 2vw;
-    transition: all cubic-bezier(.79, .14, .15, .86) 550ms;
+    transition: all ease-in-out 150ms;
 }
 
 .inp:focus+label,
 .inp+label:hover {
     /* display: none; */
-    transition: all cubic-bezier(.79, .14, .15, .86) 350ms;
+    transition: all ease-in-out 150ms;
     border: none;
-    background-color: rgb(56, 66, 0);
+    background-color: rgb(0, 53, 66);
 }
 
 .modal-content .modalbutton {
     display: none;
     border: none;
+    padding-top: 0.5vw;
+    padding-bottom: 0.5vw;
     background-color: red;
     color: white;
     font-size: 7vh;
@@ -101,14 +108,98 @@ input[type=text] {
 .modal-content .smbbutton {
     display: none;
     border: none;
-    padding-top: 0vw;
+    padding-top: 0.5vw;
+    padding-bottom: 0.5vw;
     background-color: rgb(130, 139, 0);
     color: white;
-    font-size: 180%;
+    font-size: 7vh;
     transition: all ease-in-out 150ms;
 }
 
 .modal-content .smbbutton:hover {
     background-color: rgb(56, 66, 0);
     transition: all ease-in-out 150ms;
+}
+
+.modal-content .text {
+    margin-top: 15vh;
+}
+
+.playerhud {
+    float: left;
+    margin-left: 15vw;
+    margin-top: 45vh;
+    width: 10vw;
+    height: 50vh;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-color: grey;
+    padding: 0vw 2vw;
+    border: 2px solid white;
+    text-align: center;
+    overflow: hidden;
+}
+
+.playerhud .head {
+    font-size: 4vh;
+    margin-top: -0.5vh;
+    color: rgb(238, 255, 0);
+    width: 100%;
+    font-weight: bold;
+}
+
+.playerhud .subhead {
+    font-size: 2vh;
+    margin-top: -0.5vh;
+    font-weight: bold;
+}
+
+.playerhud .info {
+    margin-top: -4vh;
+}
+
+.playerhud .buttonbank {
+    position: absolute;
+    bottom: 1vh;
+}
+
+.playerhud .savebtn {
+    border: none;
+    padding: 0.6vw;
+    background-color: rgb(130, 139, 0);
+    color: white;
+    font-size: 2vh;
+    margin-left: -2vh;
+    transition: all ease-in-out 150ms;
+}
+
+.playerhud .savebtn:hover {
+    background-color: rgb(56, 66, 0);
+    transition: all ease-in-out 150ms;
+}
+
+.open {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    /* z-index: 1; */
+}
+
+.open+label {
+    border: none;
+    background-color: rgb(0, 83, 139);
+    color: white;
+    font-size: 2vh;
+    padding: 0.6vw;
+    margin-left: 2vh;
+    transition: all ease-in-out 150ms;
+}
+
+.open:focus+label,
+.open+label:hover {
+    transition: all ease-in-out 150ms;
+    border: none;
+    background-color: rgb(0, 53, 66);
 }

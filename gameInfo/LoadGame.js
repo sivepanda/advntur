@@ -1,3 +1,4 @@
+//READS INPUTTED FILE AND SETS GAME OBJ TO FILE DATA
 function readFileAsString() {
     var files = this.files;
     if (files.length === 0) {
@@ -6,14 +7,10 @@ function readFileAsString() {
     }
 
     var reader = new FileReader();
-    reader.onload = function(event) {
-        console.log('File content:', event.target.result);
-    };
 
     reader.readAsText(files[0]);
     reader.onloadend = function() {
         console.log('DONE', reader.readyState);
-        console.log(reader.result);
         result = reader.result;
         saveGame = JSON.parse(result);
         draw();
@@ -24,6 +21,8 @@ function readFileAsString() {
     };
 }
 
+
+//WAIT FUNCTION
 function wait(ms) {
     var d = new Date();
     var d2 = null;
