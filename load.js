@@ -37,13 +37,14 @@ function newLevel() {
     doors = [];
     walls = [];
     world = [];
+    npcs = [];
+    unlkrs = [];
+    setUnlockers();
     world = levels[level].world;
-
+    setNPCs();
     setWalls(levels[level].world);
     p.x = levels[level].spawnPt.x;
     p.y = levels[level].spawnPt.y;
-    setNPCs();
-    setUnlockers();
     setDoors();
     setGameOver();
     draw();
