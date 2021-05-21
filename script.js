@@ -145,11 +145,16 @@ class Player {
             this.y + this.height > gameOver.y &&
             this.y < gameOver.y + gameOver.height
         ) {
-            openModal("Congratulations!", "Level " + (level + 1) + " is COMPLETE!", false, true, false);
-            clearEvents();
-            level++;
-            document.getElementById('level').innerHTML = "<br>" + (level + 1);
-            newLevel();
+            if (level - 1 < levels.length) {
+                openModal("Congratulations!", "Level " + (level + 1) + " is COMPLETE!", false, true, false);
+                clearEvents();
+                level++;
+                document.getElementById('level').innerHTML = "<br>" + (level + 1);
+                newLevel();
+            } else {
+                openModal("Congratulations!", "YOU JUST BEAT THE GAME!", false, false, true);
+            }
+
             return true;
         }
         return false;
