@@ -145,7 +145,7 @@ class Player {
             this.y + this.height > gameOver.y &&
             this.y < gameOver.y + gameOver.height
         ) {
-            if (level - 1 < levels.length) {
+            if (level < levels.length - 1) {
                 openModal("Congratulations!", "Level " + (level + 1) + " is COMPLETE!", false, true, false);
                 clearEvents();
                 level++;
@@ -427,4 +427,24 @@ var levels = [new Level([
     [1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1],
     [1, 0, 0, 0, 1, 0, 0, 0, 8, 0, 5, 0, 7, 0, 0, 1, 1, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-], new SpawnPt(110, 110), [new NPC(760, 924, "Dieran", "Thank goodness you finally found me! I've been hiding here for days. Look, I know now is not the time, but can you answer this riddle for me?<br>Blue in the day, black at night, everyone want to know when I cry. What am I?<br><i>type the answer as a single word and lowercase!</i>", 7, true, "sky"), new NPC(408, 1520, "Naeas", "Alfred? I'm suprised you escaped the Sneki Room. You've still got some more rooms to escape, though. Anyway, I heard you like riddles.<br>How many months of the year have 28 days<br><i>type the answer as a single word and lowercase!</i>", 8, true, "twelve")], [new Unlocker(116, 1220, 4), new Unlocker(312, 1132, 5), new Unlocker(915, 115, 6)], new GameOver(532, 1828, "blue"))];
+], new SpawnPt(110, 110), [
+    new NPC(760, 924, "Dieran", "Thank goodness you finally found me! I've been hiding here for days. Look, I know now is not the time, but can you answer this riddle for me?<br>Blue in the day, black at night, everyone wants to know when I cry. What am I?<br><i>type the answer as a single word and lowercase!</i>", 7, true, "sky"),
+    new NPC(408, 1520, "Naeas", "Alfred? I'm suprised you escaped the Sneki Room. You've still got some more rooms to escape, though. Anyway, I heard you like riddles.<br>How many months of the year have 28 days<br><i>type the answer as a single word and lowercase!</i>", 8, true, "twelve")
+], [new Unlocker(116, 1220, 4), new Unlocker(312, 1132, 5), new Unlocker(915, 115, 6)], new GameOver(532, 1828, "blue")), new Level([
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1],
+    [1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+    [1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+    [1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+], new SpawnPt(100, 100), [], [], [])];
