@@ -149,6 +149,7 @@ class Player {
                 openModal("Congratulations!", "Level " + (level + 1) + " is COMPLETE!", false, true, false);
                 clearEvents();
                 level++;
+                saveGame.level += 1;
                 document.getElementById('level').innerHTML = "<br>" + (level + 1);
                 newLevel();
             } else {
@@ -259,7 +260,8 @@ class Door {
 }
 
 class GameInfo {
-    constructor(x, y, npcs, unlkrs, checkpoint, unlockersFound, walls, doors) {
+    constructor(level, x, y, npcs, unlkrs, checkpoint, unlockersFound, walls, doors, gameOver) {
+        this.level = level;
         this.x = x;
         this.y = y;
         this.npcs = npcs;
@@ -268,6 +270,7 @@ class GameInfo {
         this.unlockersFound = unlockersFound;
         this.walls = walls;
         this.doors = doors;
+        this.gameOver = gameOver;
     }
 }
 
@@ -374,7 +377,7 @@ function displayUnlockers(arr) {
     return ret;
 }
 
-var saveGame = new GameInfo(450, 450, [], [], [], [], [], []);
+var saveGame = new GameInfo(0, 450, 450, [], [], [], [], [], [], []);
 
 var levels = [new Level([
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -432,9 +435,9 @@ var levels = [new Level([
     new NPC(408, 1520, "Naeas", "Alfred? I'm suprised you escaped the Sneki Room. You've still got some more rooms to escape, though. Anyway, I heard you like riddles.<br>How many months of the year have 28 days<br><i>type the answer as a single word and lowercase!</i>", 8, true, "twelve")
 ], [new Unlocker(116, 1220, 4), new Unlocker(312, 1132, 5), new Unlocker(915, 115, 6)], new GameOver(532, 1828, "blue")), new Level([
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+    [1, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 9, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1],
     [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1],
     [1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
     [1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
@@ -447,4 +450,4 @@ var levels = [new Level([
     [1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-], new SpawnPt(100, 100), [], [], [])];
+], new SpawnPt(100, 100), [], [new Unlocker(1436, 124, 9)], [])];

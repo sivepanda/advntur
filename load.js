@@ -71,8 +71,10 @@ function loadGame() {
     npcs = saveGame.npcs;
     unlkrs = saveGame.unlkrs;
     doors = saveGame.doors;
-    setGameOver();
-    console.log("Setup Complete");
+    gameOver = saveGame.gameOver;
+    level = saveGame.level;
+    document.getElementById('level').innerHTML = "<br>" + (level + 1);
+    console.log("Load Complete");
 
 }
 
@@ -130,6 +132,7 @@ function setDoors() {
 
 function setGameOver() {
     gameOver = levels[level].endGame;
+    saveGame.gameOver = gameOver;
 }
 
 walls = [];
