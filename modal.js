@@ -4,7 +4,6 @@ function openModal(name, message, hasQuestion, gameOver, hasOpenGame) {
     document.getElementById("modaltext").innerHTML = message;
     document.getElementById("myModal").style.display = "inline";
     document.getElementById("modalbutton").style.display = "inline";
-    document.getElementById("hudfile").addEventListener('change', readFileAsString, false);
     if (hasQuestion == true) {
         document.getElementById('text').value = "Answer here";
         document.getElementById("text").style.display = "inline";

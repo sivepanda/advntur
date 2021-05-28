@@ -126,10 +126,12 @@ class Player {
                 unlkrs[i].spoken = true;
                 unlockersFound.push(unlkrs[i]);
                 saveGame.unlockersFound = unlockersFound;
-                document.getElementById('unlockersfound').innerHTML = displayUnlockers(unlockersFound);
                 if (unlkrs[i].unlkCode == 2) {
                     openModal("Congratulations!", "You just found your first key!", false, false, false);
+                } else if (unlkrs[i].unlkCode >= 10) {
+                    unlockersFound.splice(0, 1);
                 }
+                document.getElementById('unlockersfound').innerHTML = displayUnlockers(unlockersFound);
                 clearEvents();
                 checkpoint++;
                 return true;
@@ -435,19 +437,19 @@ var levels = [new Level([
     new NPC(408, 1520, "Naeas", "Alfred? I'm suprised you escaped the Sneki Room. You've still got some more rooms to escape, though. Anyway, I heard you like riddles.<br>How many months of the year have 28 days<br><i>type the answer as a single word and lowercase!</i>", 8, true, "twelve")
 ], [new Unlocker(116, 1220, 4), new Unlocker(312, 1132, 5), new Unlocker(915, 115, 6)], new GameOver(532, 1828, "blue")), new Level([
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 9, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1],
-    [1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
-    [1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+    [1, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 11, 1, 1, 1, 1, 1, 1, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+    [1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1],
-    [1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 9, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 16, 1, 12, 0, 0, 1, 0, 0, 17, 0, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 14, 0, 1, 13, 0, 15, 1, 1, 0, 0, 0, 0, 0, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-], new SpawnPt(100, 100), [], [new Unlocker(1436, 124, 9)], [])];
+], new SpawnPt(100, 100), [], [new Unlocker(1828, 320, 9), new Unlocker(608, 320, 10), new Unlocker(2248, 720, 11), new Unlocker(1432, 1324, 12), new Unlocker(1220, 1424, 13), new Unlocker(1530, 1420, 14), new Unlocker(1020, 1440, 15), new Unlocker(1610, 1300, 16), new Unlocker(828, 1424, 71), new Unlocker(608, 1412, 17)], new GameOver(2292, 1416, "blue"))];

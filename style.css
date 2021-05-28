@@ -169,37 +169,11 @@ input[type=text] {
     background-color: rgb(130, 139, 0);
     color: white;
     font-size: 2vh;
-    margin-left: -2vh;
+    margin-left: 3vw;
     transition: all ease-in-out 150ms;
 }
 
 .playerhud .savebtn:hover {
     background-color: rgb(56, 66, 0);
     transition: all ease-in-out 150ms;
-}
-
-.hudfile {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    /* z-index: 1; */
-}
-
-.hudfile+label {
-    border: none;
-    background-color: rgb(0, 83, 139);
-    color: white;
-    font-size: 2vh;
-    padding: 0.6vw;
-    margin-left: 2vh;
-    transition: all ease-in-out 150ms;
-}
-
-.hudfile:focus+label,
-.hudfile+label:hover {
-    transition: all ease-in-out 150ms;
-    border: none;
-    background-color: rgb(0, 53, 66);
 }
