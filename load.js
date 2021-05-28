@@ -33,15 +33,25 @@ window.onload = function() {
 
 }
 
+//INITIALIZES A NEW LEVEL
 function newLevel() {
     doors = [];
     walls = [];
     world = [];
     npcs = [];
     unlkrs = [];
-    setUnlockers();
+    cx = 0;
+    cy = 0;
     world = levels[level].world;
+    ww = world[0].length * 100;
+    for (var i = 1; i < world.length; i++) {
+        if (world[i].length * 100 > ww) {
+            ww = world[i].length * 100;
+        }
+    }
+    wh = world.length * 100;
     setNPCs();
+    setUnlockers();
     setWalls(levels[level].world);
     p.x = levels[level].spawnPt.x;
     p.y = levels[level].spawnPt.y;
@@ -52,6 +62,8 @@ function newLevel() {
 
 //LOADS A PRESAVED GAME
 function loadGame() {
+    fps = 75;
+    clearInterval(updateInterval);
     p = new Player(saveGame.x, saveGame.y);
     walls = saveGame.walls;
     unlockersFound = saveGame.unlockersFound;
@@ -59,8 +71,10 @@ function loadGame() {
     npcs = saveGame.npcs;
     unlkrs = saveGame.unlkrs;
     doors = saveGame.doors;
-    setGameOver();
-    console.log("Setup Complete");
+    gameOver = saveGame.gameOver;
+    level = saveGame.level;
+    document.getElementById('level').innerHTML = "<br>" + (level + 1);
+    console.log("Load Complete");
 
 }
 
@@ -118,6 +132,7 @@ function setDoors() {
 
 function setGameOver() {
     gameOver = levels[level].endGame;
+    saveGame.gameOver = gameOver;
 }
 
 walls = [];
@@ -216,6 +231,4 @@ function draw() {
     ctx.lineWidth = 1;
     ctx.fillText("O", gameOver.x - cx + gameOver.width / 2, gameOver.y - cy + gameOver.height / 2 + 20);
     ctx.strokeText("O", gameOver.x - cx + gameOver.width / 2, gameOver.y - cy + gameOver.height / 2 + 20);
-
-    //HUD
 }

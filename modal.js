@@ -42,4 +42,7 @@ function submit() {
     }
 }
 
+// document.getElementById("playerhud").getElementById("hudfile").style.display = "none";
+//addEventListener('change', readFileAsString, false);
+
 //SFHS TSA 2021
