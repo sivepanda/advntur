@@ -103,10 +103,13 @@ class Player {
                 this.y < npcs[i].y + npcs[i].height &&
                 !npcs[i].spoken
             ) {
-                npcs[i].spoken = true;
+                if (!npcs[i].hasQuestion) {
+                    npcs[i].spoken = true;
+                }
                 openModal(npcs[i].name, npcs[i].message, npcs[i].hasQuestion, false, false);
                 ans = npcs[i].answer;
                 modalUnlk = npcs[i].unlkCode;
+                touchedNPC = npcs[i];
                 clearEvents();
                 return true;
             }
@@ -152,7 +155,7 @@ class Player {
                 clearEvents();
                 level++;
                 saveGame.level += 1;
-                document.getElementById('level').innerHTML = "<br>" + (level + 1);
+                document.getElementById('level').innerHTML = (level + 1);
                 newLevel();
             } else {
                 openModal("Congratulations!", "YOU JUST BEAT THE GAME!", false, false, true);
@@ -320,6 +323,7 @@ var Key = {
     DOWN: 40,
     S: 83,
     SHIFT: 16,
+    ESC: 27,
 
     isDown: function(keyCode) {
         return this._pressed[keyCode];
@@ -337,6 +341,12 @@ var Key = {
 };
 
 keycodes = [];
+
+function closeOnEsc() {
+    if (Key.isDown(Key.ESC)) {
+        closeModal();
+    }
+}
 
 function clearEvents() {
     if (keycodes.length > 0) {
@@ -374,7 +384,7 @@ function click() {
 function displayUnlockers(arr) {
     var ret = "";
     for (var i = 0; i < arr.length; i++) {
-        ret += "<br>" + arr[i].unlkCode;
+        ret += arr[i].unlkCode + "<br>";
     }
     return ret;
 }
@@ -452,4 +462,6 @@ var levels = [new Level([
     [1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 16, 1, 12, 0, 0, 1, 0, 0, 17, 0, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 14, 0, 1, 13, 0, 15, 1, 1, 0, 0, 0, 0, 0, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-], new SpawnPt(100, 100), [], [new Unlocker(1828, 320, 9), new Unlocker(608, 320, 10), new Unlocker(2248, 720, 11), new Unlocker(1432, 1324, 12), new Unlocker(1220, 1424, 13), new Unlocker(1530, 1420, 14), new Unlocker(1020, 1440, 15), new Unlocker(1610, 1300, 16), new Unlocker(828, 1424, 71), new Unlocker(608, 1412, 17)], new GameOver(2292, 1416, "blue"))];
+], new SpawnPt(100, 100), [
+    new NPC(1420, 1212, "Mefesta", "  to the Labyrinth! You need to remeber to beware of the odd key out. <br>Now, one question, what has keys that do not unlock anything?<br><i>type the answer as a single word and lowercase!</i>", 12, true, "keyboard")
+], [new Unlocker(1828, 320, 9), new Unlocker(608, 320, 10), new Unlocker(2248, 720, 11), new Unlocker(1432, 1324, 12), new Unlocker(1220, 1424, 13), new Unlocker(1530, 1420, 14), new Unlocker(1020, 1440, 15), new Unlocker(1610, 1300, 16), new Unlocker(608, 1412, 17)], new GameOver(2292, 1416, "blue"))];

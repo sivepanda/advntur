@@ -8,7 +8,7 @@ window.onload = function() {
 
     window.addEventListener('keyup', function(event) { Key.onKeyup(event); }, false);
     window.addEventListener('keydown', function(event) { Key.onKeydown(event); }, false);
-
+    window.addEventListener('keydown', function(event) { closeOnEsc() }, false);
     document.addEventListener("keydown", keyPush);
 
     canv.addEventListener('mousemove', function(evt) {
@@ -27,7 +27,7 @@ window.onload = function() {
     updateInterval = setInterval(update, 1000 / fps);
 
     newLevel();
-    openModal("Welcome to advntur", "Use the arrow keys to navigate, and travel to the boxes with exclamination points to get your objectives! Grey boxes with the a number on them are keys some NPCs will also have keys; they will ask you questions)! They are important!<br><br> You can also open a previous game save using the <i>Open Previous Save</i> button below, and selecting a Game(x) file.", false, false, true);
+    openModal("Welcome to advntur", "Use the arrow keys to navigate, shift to sprint, and escape to close popups. Travel to the boxes with exclamination points to get your objectives (make sure to note anything they tell you, they might be important along the way)! Grey boxes with the a number on them are keys some NPCs will also have keys; they will ask you questions)! They are important!<br><br> You can also open a previous game save using the <i>Open Previous Save</i> button below, and selecting a Game(x) file.", false, false, true);
 
     console.log("Setup Complete");
 
@@ -78,14 +78,17 @@ function loadGame() {
 
 }
 
+//FREEZES MOVEMENT
 function freeze() {
     clearInterval(updateInterval);
 }
 
+//UNFREEZES MOVEMENT
 function unFreeze() {
     updateInterval = setInterval(update, 1000 / fps);
 }
 
+//TRANSLATES LEVEL MAP TO WALLS THAT CAN BE RENDERED WITH CTX
 function setWalls(levelMap) {
     for (var r = 0; r < levelMap.length; r++) {
         for (var c = 0; c < levelMap[r].length; c++) {
@@ -97,8 +100,10 @@ function setWalls(levelMap) {
     saveGame.walls = walls;
 }
 
+//LEVEL INITIALIZATION
 ans = "";
 modalUnlk = "";
+touchedNPC = "";
 checkpoint = 0;
 unlockersFound = [];
 
@@ -152,6 +157,7 @@ function update() {
     draw();
 }
 
+//DRAW LEVEL
 function draw() {
     //BACKGROUND
     ctx.fillStyle = "turquoise";
@@ -174,11 +180,17 @@ function draw() {
             ctx.fillRect(doors[i].x - cx, doors[i].y - cy, 120, 120);
             ctx.fillText("🔒", doors[i].x - cx + doors[i].width / 2, doors[i].y - cy + doors[i].height / 2 + 20);
             ctx.strokeText("🔒", doors[i].x - cx + doors[i].width / 2, doors[i].y - cy + doors[i].height / 2 + 20);
+            ctx.fillStyle = "white";
+            ctx.fillText(doors[i].unlkKey, doors[i].x - cx + doors[i].width / 2, doors[i].y - cy + doors[i].height / 2 + 20);
+            ctx.strokeText(doors[i].unlkKey, doors[i].x - cx + doors[i].width / 2, doors[i].y - cy + doors[i].height / 2 + 20);
         } else {
             ctx.fillStyle = "green";
             ctx.fillRect(doors[i].x - cx, doors[i].y - cy, 120, 120);
             ctx.fillText("🔓", doors[i].x - cx + doors[i].width / 2, doors[i].y - cy + doors[i].height / 2 + 20);
             ctx.strokeText("🔓", doors[i].x - cx + doors[i].width / 2, doors[i].y - cy + doors[i].height / 2 + 20);
+            ctx.fillStyle = "yellow";
+            ctx.fillText(doors[i].unlkKey, doors[i].x - cx + doors[i].width / 2, doors[i].y - cy + doors[i].height / 2 + 20);
+            ctx.strokeText(doors[i].unlkKey, doors[i].x - cx + doors[i].width / 2, doors[i].y - cy + doors[i].height / 2 + 20);
         }
 
     }

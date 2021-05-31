@@ -8,7 +8,8 @@ function openModal(name, message, hasQuestion, gameOver, hasOpenGame) {
         document.getElementById('text').value = "Answer here";
         document.getElementById("text").style.display = "inline";
         document.getElementById("smbbutton").style.display = "inline";
-        document.getElementById("modalbutton").style.display = "none";
+        document.getElementById("modalbutton").style.display = "inline";
+        document.getElementById("savebutton").style.display = "none";
     } else if (hasOpenGame) {
         document.getElementById("btn").style.display = "inline";
         document.getElementById("file").style.display = "inline";
@@ -36,13 +37,11 @@ function submit() {
         document.getElementById('text').value = "correct!";
         unlockersFound.push(new Unlocker(0, 0, modalUnlk));
         document.getElementById('unlockersfound').innerHTML = displayUnlockers(unlockersFound);
+        touchedNPC.spoken = true;
         closeModal();
     } else {
         document.getElementById('text').value = "incorrect";
     }
 }
-
-// document.getElementById("playerhud").getElementById("hudfile").style.display = "none";
-//addEventListener('change', readFileAsString, false);
 
 //SFHS TSA 2021
