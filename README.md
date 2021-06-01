@@ -1,2 +1,2 @@
 # advntur
-Open index.html to open the game.
+Unzip the folder and Open index.html to open the game.
